@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CM.WeeklyTeamReport.Domain
 {
-    [ExcludeFromCodeCoverageAttribute]
+    [ExcludeFromCodeCoverage]
     public class CompanyRepository : IRepository<Company>
     {
         string connectionString = "Server=ANTON-PC;Database=WeeklyTeamReportLib;Trusted_Connection=True;";

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 
 namespace CM.WeeklyTeamReport.Domain
 {
+    [ExcludeFromCodeCoverage]
     public class TeamMemberRepository : IRepository<TeamMember>
     {
         string connectionString = "Server=ANTON-PC;Database=WeeklyTeamReportLib;Trusted_Connection=True;";

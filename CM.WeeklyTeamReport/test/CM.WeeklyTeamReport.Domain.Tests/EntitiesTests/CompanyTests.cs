@@ -10,14 +10,17 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateCompanyObject()
         {
-            Company company = new Company("Company Name", teamMembers, "2021")
+            Company company = new Company()
             {
-                CompanyId = 1
+                CompanyId = 1,
+                TeamMembers = teamMembers,
+                CompanyName = "Company Name",
+                JoinDate = "2021-12-12"
             };
             Assert.NotNull(company);
             Assert.Equal("Company Name", company.CompanyName);
             Assert.Equal(teamMembers, company.TeamMembers);
-            Assert.Equal("2021", company.JoinDate);
+            Assert.Equal("2021-12-12", company.JoinDate);
             Assert.Equal(1, company.CompanyId);
         }
 
@@ -26,7 +29,13 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [InlineData("")]
         public void ShouldUpdateCompanyNameNullCorrectly(string newCompanyName)
         {
-            Company company = new Company("Company Name", teamMembers, "2021");
+            Company company = new Company()
+            {
+                CompanyId = 1,
+                TeamMembers = teamMembers,
+                CompanyName = "Company Name",
+                JoinDate = "2021-12-12"
+            };
             string oldCompanyName = company.CompanyName;
             company.UpdateCompanyName(newCompanyName);
             Assert.Equal(oldCompanyName, company.CompanyName);
@@ -36,7 +45,13 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [InlineData("New Company Name")]
         public void ShouldUpdateCompanyNameCorrectly(string newCompanyName)
         {
-            Company company = new Company("Company Name", teamMembers, "2021");
+            Company company = new Company()
+            {
+                CompanyId = 1,
+                TeamMembers = teamMembers,
+                CompanyName = "Company Name",
+                JoinDate = "2021-12-12"
+            };
             string oldCompanyName = company.CompanyName;
             company.UpdateCompanyName(newCompanyName);
             Assert.NotEqual(oldCompanyName, company.CompanyName);

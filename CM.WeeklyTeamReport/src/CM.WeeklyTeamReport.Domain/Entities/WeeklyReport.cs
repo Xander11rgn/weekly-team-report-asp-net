@@ -9,7 +9,6 @@ namespace CM.WeeklyTeamReport.Domain
         public int WeeklyReportId { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public string Year { get; set; }
         public Morales MoraleValue { get; set; }
         public Morales StressValue { get; set; }
         public Morales WorkloadValue { get; set; }
@@ -21,9 +20,9 @@ namespace CM.WeeklyTeamReport.Domain
         public string AnythingElseComment { get; set; }
         public int TeamMemberId { get; set; }
 
-        public WeeklyReport(string startDate, string endDate, string year, Morales moraleValue, Morales stressValue, Morales workloadValue, string moraleComment, string stressComment, string workloadComment, string weekHighComment, string weekLowComment, string anythingElseComment)
+        public WeeklyReport()
         {
-            StartDate = startDate;
+            /*StartDate = startDate;
             EndDate = endDate;
             Year = year;
             MoraleValue = moraleValue;
@@ -34,7 +33,7 @@ namespace CM.WeeklyTeamReport.Domain
             WorkloadComment = workloadComment;
             WeekHighComment = weekHighComment;
             WeekLowComment = weekLowComment;
-            AnythingElseComment = anythingElseComment;
+            AnythingElseComment = anythingElseComment;*/
         }
     }
 }

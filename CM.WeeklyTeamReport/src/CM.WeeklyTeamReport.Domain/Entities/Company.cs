@@ -15,17 +15,14 @@ namespace CM.WeeklyTeamReport.Domain
         { 
             get; 
             set; 
-        }
+        } = new List<TeamMember>();
         public string JoinDate 
         { 
             get; 
             set; 
         }
-        public Company(string companyName, List<TeamMember> teamMembers, string joinDate)
+        public Company()
         {
-            this.CompanyName = companyName; 
-            this.TeamMembers = teamMembers;
-            this.JoinDate = joinDate;
         }
 
         public void UpdateCompanyName(string companyName)

@@ -13,9 +13,17 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateTeamMemberObject()
         {
-            TeamMember teamMember = new TeamMember("Name", "Surname", "CEO", "someUrl", "awdaw@ad.wad", reportsList, reportsTo, reportsFrom)
+            TeamMember teamMember = new TeamMember()
             {
                 TeamMemberId = 1,
+                FirstName = "Name",
+                LastName = "Surname",
+                Title = "CEO",
+                InviteLink = "someUrl",
+                Mail = "awdaw@ad.wad",
+                ReportsList = reportsList,
+                ReportsTo = reportsTo,
+                ReportsFrom = reportsFrom,
                 CompanyId = 2
             };
             Assert.NotNull(teamMember);
@@ -36,7 +44,19 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [InlineData("", "New Surname", "New title")]
         public void ShouldUpdateFirstNameCorrectly(string newName, string newSurname, string newTitle)
         {
-            TeamMember teamMember = new TeamMember("Name", "Surname", "CEO", "someUrl", "awdaw@ad.wad", reportsList, reportsTo, reportsFrom);
+            TeamMember teamMember = new TeamMember()
+            {
+                TeamMemberId = 1,
+                FirstName = "Name",
+                LastName = "Surname",
+                Title = "CEO",
+                InviteLink = "someUrl",
+                Mail = "awdaw@ad.wad",
+                ReportsList = reportsList,
+                ReportsTo = reportsTo,
+                ReportsFrom = reportsFrom,
+                CompanyId = 2
+            };
             string oldName = teamMember.FirstName;
             teamMember.UpdateMemberData(newName, newSurname, newTitle);
             Assert.Equal(oldName, teamMember.FirstName);
@@ -47,7 +67,19 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [InlineData("New Name", "", "New title")]
         public void ShouldUpdateLastNameCorrectly(string newName, string newSurname, string newTitle)
         {
-            TeamMember teamMember = new TeamMember("Name", "Surname", "CEO", "someUrl", "awdaw@ad.wad", reportsList, reportsTo, reportsFrom);
+            TeamMember teamMember = new TeamMember()
+            {
+                TeamMemberId = 1,
+                FirstName = "Name",
+                LastName = "Surname",
+                Title = "CEO",
+                InviteLink = "someUrl",
+                Mail = "awdaw@ad.wad",
+                ReportsList = reportsList,
+                ReportsTo = reportsTo,
+                ReportsFrom = reportsFrom,
+                CompanyId = 2
+            };
             string oldSurname = teamMember.LastName;
             teamMember.UpdateMemberData(newName, newSurname, newTitle);
             Assert.Equal(oldSurname, teamMember.LastName);
@@ -58,7 +90,19 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [InlineData("New Name", "New Surname", "")]
         public void ShouldUpdateTitleCorrectly(string newName, string newSurname, string newTitle)
         {
-            TeamMember teamMember = new TeamMember("Name", "Surname", "CEO", "someUrl", "awdaw@ad.wad", reportsList, reportsTo, reportsFrom);
+            TeamMember teamMember = new TeamMember()
+            {
+                TeamMemberId = 1,
+                FirstName = "Name",
+                LastName = "Surname",
+                Title = "CEO",
+                InviteLink = "someUrl",
+                Mail = "awdaw@ad.wad",
+                ReportsList = reportsList,
+                ReportsTo = reportsTo,
+                ReportsFrom = reportsFrom,
+                CompanyId = 2
+            };
             string oldTitle = teamMember.Title;
             teamMember.UpdateMemberData(newName, newSurname, newTitle);
             Assert.Equal(oldTitle, teamMember.Title);

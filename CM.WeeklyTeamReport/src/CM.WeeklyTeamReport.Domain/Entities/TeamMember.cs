@@ -17,16 +17,8 @@ namespace CM.WeeklyTeamReport.Domain
         public List<TeamMember> ReportsFrom { get; set; }
         public int CompanyId { get; set; }
 
-        public TeamMember(string firstName, string lastName, string title, string inviteLink, string mail, List<WeeklyReport> reportsList, List<TeamMember> reportsListFromMember, List<TeamMember> reportsListToMember)
+        public TeamMember()
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Title = title;
-            InviteLink = inviteLink;
-            Mail = mail;
-            ReportsList = reportsList;
-            ReportsTo = reportsListFromMember;
-            ReportsFrom = reportsListToMember;
         }
 
         public void UpdateMemberData(string firstName, string lastName, string title)

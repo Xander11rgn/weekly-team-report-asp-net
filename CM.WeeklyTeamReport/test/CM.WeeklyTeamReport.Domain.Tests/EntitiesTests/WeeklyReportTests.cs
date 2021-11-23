@@ -10,24 +10,34 @@ namespace CM.WeeklyTeamReport.Domain.Tests
         [Fact]
         public void ShouldBeAbleToCreateWeeklyReportObject()
         {
-            WeeklyReport weeklyReport = new WeeklyReport("May 9", "May 16", "2020", Morales.Okay, Morales.Low, Morales.Great, "adawd", "adad", "wdad", "adawd", "adad", "wdad")
+            WeeklyReport weeklyReport = new WeeklyReport() 
             {
+                StartDate = "2021-12-12",
+                EndDate = "2021-12-12",
+                MoraleValue = Morales.Okay,
+                StressValue = Morales.Low,
+                WorkloadValue = Morales.Great,
+                MoraleComment = "wadad",
+                StressComment = "wadad",
+                WorkloadComment = "wadad",
+                WeekHighComment = "wadad",
+                WeekLowComment = "wadad",
+                AnythingElseComment = "wadad",
                 WeeklyReportId = 1,
                 TeamMemberId = 2
             };
             Assert.NotNull(weeklyReport);
-            Assert.Equal("May 9", weeklyReport.StartDate);
-            Assert.Equal("May 16", weeklyReport.EndDate);
-            Assert.Equal("2020", weeklyReport.Year);
+            Assert.Equal("2021-12-12", weeklyReport.StartDate);
+            Assert.Equal("2021-12-12", weeklyReport.EndDate);
             Assert.Equal(Morales.Okay, weeklyReport.MoraleValue);
             Assert.Equal(Morales.Low, weeklyReport.StressValue);
             Assert.Equal(Morales.Great, weeklyReport.WorkloadValue);
-            Assert.Equal("adawd", weeklyReport.MoraleComment);
-            Assert.Equal("adad", weeklyReport.StressComment);
-            Assert.Equal("wdad", weeklyReport.WorkloadComment);
-            Assert.Equal("adawd", weeklyReport.WeekHighComment);
-            Assert.Equal("adad", weeklyReport.WeekLowComment);
-            Assert.Equal("wdad", weeklyReport.AnythingElseComment);
+            Assert.Equal("wadad", weeklyReport.MoraleComment);
+            Assert.Equal("wadad", weeklyReport.StressComment);
+            Assert.Equal("wadad", weeklyReport.WorkloadComment);
+            Assert.Equal("wadad", weeklyReport.WeekHighComment);
+            Assert.Equal("wadad", weeklyReport.WeekLowComment);
+            Assert.Equal("wadad", weeklyReport.AnythingElseComment);
             Assert.Equal(1, weeklyReport.WeeklyReportId);
             Assert.Equal(2, weeklyReport.TeamMemberId);
         }

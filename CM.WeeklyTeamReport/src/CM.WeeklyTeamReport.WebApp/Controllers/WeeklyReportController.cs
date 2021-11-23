@@ -25,12 +25,12 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         }
 
 
-        /*[HttpGet]
+        [HttpGet]
         public List<WeeklyReport> ReadAll(int teamMemberId)
         {
             WeeklyReportRepository weeklyReportRepository = new WeeklyReportRepository();
             return weeklyReportRepository.ReadAllById(teamMemberId);
-        }*/
+        }
 
         [Route("{id:int}")]
         [HttpGet]

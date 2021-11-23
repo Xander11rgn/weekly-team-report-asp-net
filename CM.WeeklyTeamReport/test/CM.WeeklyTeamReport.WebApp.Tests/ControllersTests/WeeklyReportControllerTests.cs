@@ -10,14 +10,14 @@ namespace CM.WeeklyTeamReport.WebApp.Tests
 {
     public class WeeklyReportControllerTests
     {
-        /*[Fact]
+        [Fact]
         public void ShouldReturnAllWeeklyReports()
         {
             var weeklyReportController = new WeeklyReportController();
             var weeklyReports = weeklyReportController.ReadAll(1);
             weeklyReports.Should().NotBeNull();
             weeklyReports.Should().HaveCount(3);
-        }*/
+        }
 
         [Fact]
         public void ShouldReturnWeeklyReportById()

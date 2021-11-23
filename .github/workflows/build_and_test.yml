@@ -17,6 +17,6 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       working-directory: ./CM.WeeklyTeamReport
-      run: dotnet test --no-build --verbosity normal --filter "DisplayName\!~CM.WeeklyTeamReport.WebApp.Tests.WeeklyReportControllerTests.MyTestMethod.ShouldReturnAllWeeklyReports&DisplayName\!~CM.WeeklyTeamReport.WebApp.Tests.TeamMemberControllerTests.MyTestMethod.ShouldReturnAllTeamMembers" --collect:"XPlat Code Coverage"
+      run: dotnet test --no-build --verbosity normal --filter "DisplayName\!~CM.WeeklyTeamReport.WebApp.Tests.WeeklyReportControllerTests.ShouldReturnAllWeeklyReports&DisplayName\!~CM.WeeklyTeamReport.WebApp.Tests.TeamMemberControllerTests.ShouldReturnAllTeamMembers" --collect:"XPlat Code Coverage"
     - name: Codecov upload
       uses: codecov/codecov-action@v2

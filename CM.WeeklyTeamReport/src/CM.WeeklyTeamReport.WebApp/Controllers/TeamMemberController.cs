@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.RegularExpressions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CM.WeeklyTeamReport.WebApp.Controllers
 {
@@ -25,37 +27,83 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
         {
         }
 
-
+        [ExcludeFromCodeCoverage]
         [HttpGet]
-        public List<TeamMember> ReadAll(int companyId)
+        public ActionResult<List<TeamMember>> ReadAll(string companyId)
         {
+            if (!Regex.IsMatch(companyId, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("CompanyId should be positive integer.");
+            }
             TeamMemberRepository teamMemberRepository = new TeamMemberRepository();
-            return teamMemberRepository.ReadAllById(companyId);
+            var result = teamMemberRepository.ReadAllById(Convert.ToInt32(companyId));
+            if (result.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            return new OkObjectResult(result);
         }
 
-        [Route("{id:int}")]
+
+        [Route("{teamMemberId}")]
         [HttpGet]
-        public TeamMember Read(int id)
+        public ActionResult<TeamMember> Read([FromRoute] string companyId, [FromRoute] string teamMemberId)
         {
-            return _repository.Read(id);
+            if (!Regex.IsMatch(companyId, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("CompanyId should be positive integer.");
+            }
+            if (!Regex.IsMatch(teamMemberId, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("TeamMemberId should be positive integer.");
+            }
+            var result = _repository.Read(Convert.ToInt32(teamMemberId));
+            if (result == null)
+            {
+                return new NotFoundObjectResult($"TeamMember {teamMemberId} Not Found");
+            }
+            return new OkObjectResult(result);
         }
 
         [HttpPost]
-        public TeamMember Create([FromQuery] TeamMember teamMember)
+        public ActionResult<TeamMember> Create([FromQuery] TeamMember teamMember)
         {
-            return _repository.Create(teamMember);
+            if (teamMember == null)
+            {
+                return new BadRequestObjectResult("TeamMember should not be null.");
+            }
+            var result = _repository.Create(teamMember);
+            return new CreatedResult($"/api/companies/{result.CompanyId}/team-members/{result.TeamMemberId}", result);
         }
 
         [HttpPut]
-        public TeamMember Update([FromQuery] TeamMember teamMember)
+        public ActionResult<TeamMember> Update([FromQuery] TeamMember teamMember)
         {
-            return _repository.Update(teamMember);
+            if (teamMember == null)
+            {
+                return new BadRequestObjectResult("TeamMember should not be null.");
+            }
+            var result = _repository.Update(teamMember);
+            return new OkObjectResult(result);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public ActionResult Delete([FromRoute] string companyId, [FromQuery] string teamMemberId)
         {
-            _repository.Delete(id);
+            if (!Regex.IsMatch(companyId, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("CompanyId should be positive integer.");
+            }
+            if (!Regex.IsMatch(teamMemberId, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("TeamMemberId should be positive integer.");
+            }
+            if (_repository.Read(Convert.ToInt32(teamMemberId)) == null)
+            {
+                return new NotFoundObjectResult($"TeamMember {teamMemberId} Not Found");
+            }
+            _repository.Delete(Convert.ToInt32(teamMemberId));
+            return new OkObjectResult($"TeamMember {teamMemberId} is deleted.");
         }
     }
 }

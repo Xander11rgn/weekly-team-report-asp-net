@@ -75,11 +75,7 @@ namespace CM.WeeklyTeamReport.Domain
                     return MapCompany(reader);
                 }
             }
-            return new Company()
-            {
-                CompanyName = "empty",
-                JoinDate = "empty"
-            };
+            return null;
         }
 
         public Company Update(Company company)

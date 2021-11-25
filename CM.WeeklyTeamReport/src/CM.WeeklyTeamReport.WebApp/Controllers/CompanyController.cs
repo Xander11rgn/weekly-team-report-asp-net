@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 namespace CM.WeeklyTeamReport.WebApp.Controllers
 {
@@ -21,34 +22,67 @@ namespace CM.WeeklyTeamReport.WebApp.Controllers
 
         [Route("")]
         [HttpGet]
-        public List<Company> ReadAll()
+        public ActionResult<List<Company>> ReadAll()
         {
-            return _repository.ReadAll();
+            var result = _repository.ReadAll();
+            if (result.Count == 0)
+            {
+                return new NoContentResult();
+            }
+            return new OkObjectResult(result);
         }
 
         [Route("{id:int}")]
         [HttpGet]
-        public Company Read(int id)
+        public ActionResult<Company> Read(string id)
         {
-            return _repository.Read(id);
+            if (!Regex.IsMatch(id, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("CompanyId should be positive integer.");
+            }
+            var result = _repository.Read(Convert.ToInt32(id));
+            if (result == null)
+            {
+                return new NotFoundObjectResult($"Company {id} Not Found");
+            }
+            return new OkObjectResult(result);
         }
 
         [HttpPost]
-        public Company Create([FromQuery] Company company)
+        public ActionResult<Company> Create([FromQuery] Company company)
         {
-            return _repository.Create(company);
+            if (company == null)
+            {
+                return new BadRequestObjectResult("Company should not be null.");
+            }
+            var result = _repository.Create(company);
+            return new CreatedResult($"/api/companies/{result.CompanyId}", result);
         }
 
         [HttpPut]
-        public Company Update([FromQuery] Company company)
+        public ActionResult<Company> Update([FromQuery] Company company)
         {
-            return _repository.Update(company);
+            if (company == null)
+            {
+                return new BadRequestObjectResult("Company should not be null.");
+            }
+            var result = _repository.Update(company);
+            return new OkObjectResult(result);
         }
 
         [HttpDelete]
-        public void Delete(int id)
+        public ActionResult Delete(string id)
         {
-            _repository.Delete(id);
+            if (!Regex.IsMatch(id, @"^\d+$"))
+            {
+                return new BadRequestObjectResult("CompanyId should be positive integer.");
+            }
+            if (_repository.Read(Convert.ToInt32(id)) == null)
+            {
+                return new NotFoundObjectResult($"Company {id} Not Found");
+            }
+            _repository.Delete(Convert.ToInt32(id));
+            return new OkObjectResult($"Company {id} is deleted.");
         }
     }
 }
